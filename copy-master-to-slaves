@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+die() {
+    echo $1
+    exit 1
+}
+
+usage() {
+    cat <<EOF
+$0: <src_dir> [dst_dir] copies src_dir on local machine to the specified MASTER's dst_dir directory. If dst_dir is not mentioned, src_dir is used
+EOF
+}
+
+if [ "$#" -lt 1 ]; then
+    usage
+    die "Incorrect usage"
+fi
+
+. ./machines.sh
+
+src=`distcmd -m "readlink -f $1"`
+
+if [ "$#" -ne 2 ]; then
+    dst=`distcmd -m "dirname $src"`
+else
+    dst=$2
+fi
+
+set -x
+distcmd -s "rsync -aviz $MASTER:$src $dst/"
