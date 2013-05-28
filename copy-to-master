@@ -13,14 +13,23 @@ $0: <src_dir> [dst_dir] copies src_dir on local machine to the specified MASTER'
 EOF
 }
 
+if [ -f ./distcheck ]; then
+    . ./distcheck
+else
+    distcheckpath=`which distcheck`
+    if [ -f distcheckpath ]; then
+	. distcheckpath
+    else
+	die "distcheck not in path, couldn't verify master and slave"
+    fi
+fi
+
 if [ "$#" -lt 1 ]; then
     usage
     die "Incorrect usage"
 fi
 
 ! [ -e "$1" ] && die "The source - $1 - not found on filesystem"
-
-. ./machines.sh
 
 src=`readlink -f $1`
 echo "Absolute path of source is $src"

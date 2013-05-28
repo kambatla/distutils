@@ -21,8 +21,6 @@ $0: run commands on a cluster
 EOF
 }
 
-. ./machines.sh
-
 run_cmd() {
     fname="$1.para.txt"
     shift
@@ -74,10 +72,16 @@ $cmd $MASTER:$cmd
     fi
 }
 
-[ -e MASTER ] && die "you must set MASTER to the hostname of the master node"
-[ -e SLAVES ] && die "you must set SLAVES to a whitespace-separated list of \
-the hostnames of the slave nodes"
-SSH_OPTS="-oStrictHostKeyChecking=no "
+if [ -f ./distcheck ]; then
+    . ./distcheck
+else
+    distcheckpath=`which distcheck`
+    if [ -f distcheckpath ]; then
+	. distcheckpath
+    else
+	die "distcheck not in path, couldn't verify master and slave"
+    fi
+fi
 
 abort_on_fail=0
 action="none"

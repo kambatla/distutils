@@ -8,5 +8,10 @@ else
     dst=$1
 fi
 
-echo "Copying distcmd to $dst ..."
-sudo cp distcmd $dst/
+echo "Copying files to $dst ..."
+for i in ./*; do
+    if [ -x $i ]; then
+	echo "\t$i"
+	sudo cp $i $dst/
+    fi
+done

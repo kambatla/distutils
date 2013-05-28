@@ -16,6 +16,17 @@ $0: <src_dir> [dst_dir] copies src_dir on local machine to the specified MASTER'
 EOF
 }
 
+if [ -f ./distcheck ]; then
+    . ./distcheck
+else
+    distcheckpath=`which distcheck`
+    if [ -f distcheckpath ]; then
+	. distcheckpath
+    else
+	die "distcheck not in path, couldn't verify master and slave"
+    fi
+fi
+
 if [ "$#" -lt 1 ]; then
     usage
     die "Incorrect usage"
