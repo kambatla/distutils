@@ -2,6 +2,9 @@
 
 set -e
 
+SSH_OPTS="-oStrictHostKeyChecking=no "
+SSH="ssh $SSH_OPTS"
+
 die() {
     echo $1
     exit 1
@@ -20,13 +23,13 @@ fi
 
 . ./machines.sh
 
-src=`distcmd -m "readlink -f $1"`
-
+src=`$SSH $MASTER "readlink -f $1"`
+echo $src
 if [ "$#" -ne 2 ]; then
-    dst=`distcmd -m "dirname $src"`
+    dst=`$SSH $MASTER "dirname $src"`
 else
     dst=$2
 fi
-
+echo $dst
 set -x
 distcmd -s "rsync -aviz $MASTER:$src $dst/"
