@@ -15,4 +15,4 @@ the hostnames of the slave nodes"
 
 SSH_OPTS="-oStrictHostKeyChecking=no "
 SSH="ssh $SSH_OPTS"
-RSYNC="rsync $SSH_OPTS"
+

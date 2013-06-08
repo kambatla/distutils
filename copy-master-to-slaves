@@ -40,4 +40,4 @@ else
 fi
 echo $dst
 set -x
-distcmd -s "$RSYNC -aviz $MASTER:$src $dst/"
+distcmd -s "rsync -aviz $MASTER:$src $dst/"

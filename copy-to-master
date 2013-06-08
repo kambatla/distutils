@@ -43,4 +43,4 @@ fi
 echo "Absolute path of destination is $dst"
 
 set -x
-$RSYNC -aviz $src $MASTER:$dst
+rsync -aviz $src $MASTER:$dst
