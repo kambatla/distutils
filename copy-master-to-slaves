@@ -2,9 +2,6 @@
 
 set -e
 
-SSH_OPTS="-oStrictHostKeyChecking=no "
-SSH="ssh $SSH_OPTS"
-
 die() {
     echo $1
     exit 1
@@ -43,4 +40,4 @@ else
 fi
 echo $dst
 set -x
-distcmd -s "rsync -aviz $MASTER:$src $dst/"
+distcmd -s "$RSYNC -aviz $MASTER:$src $dst/"
