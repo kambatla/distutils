@@ -20,8 +20,8 @@ if [ -f ./distcheck ]; then
     . ./distcheck
 else
     distcheckpath=`which distcheck`
-    if [ -f distcheckpath ]; then
-	. distcheckpath
+    if [ -f $distcheckpath ]; then
+	. $distcheckpath
     else
 	die "distcheck not in path, couldn't verify master and slave"
     fi
